@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "101a95d9-c965-4027-85bd-6006fbbec34f",
+		"name": "Spotify",
+		"description": "[https://developer.spotify.com/documentation/web-api](https://developer.spotify.com/documentation/web-api)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30902349"
+	},
+	"item": [
+		{
+			"name": "get artist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/artists/0TnOYISbd1XYRBk9myaseg",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"artists",
+						"0TnOYISbd1XYRBk9myaseg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "browse new releases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>Album Type</th>",
+							"        <th>Artist</th>",
+							"        <th>Available Markets</th>",
+							"        <th>Release Date</th>",
+							"        <th>Total Tracks</th>",
+							"    </tr>",
+							"    ",
+							"    {{#each response.albums.items}}",
+							"        <tr>",
+							"            <td>{{album_type}}</td>",
+							"            <td>{{artists.[0].name}}</td>",
+							"            <td>{{available_markets.length}}</td>",
+							"            <td>{{release_date}}</td>",
+							"            <td>{{total_tracks}}</td>",
+							"        </tr>",
+							"    {{/each}}",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return {response: pm.response.json()}",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/browse/new-releases",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"browse",
+						"new-releases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create playlist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Playlist v4\",\n    \"description\": \"Demo\",\n    \"public\": false\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/users/bhillian/playlists",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"bhillian",
+						"playlists"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "create playlist",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Playlist\",\n    \"description\": \"Demo for United Hacks\",\n    \"public\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/users/bhillian/playlists",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"bhillian",
+								"playlists"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "private, max-age=0"
+						},
+						{
+							"key": "location",
+							"value": "https://api.spotify.com/v1/playlists/2Xfb6UDkY9ppcaYFA7ZTep"
+						},
+						{
+							"key": "x-robots-tag",
+							"value": "noindex, nofollow"
+						},
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version, X-Cloud-Trace-Context, client-token, content-access-token"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "GET, POST, OPTIONS, PUT, DELETE, PATCH"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-max-age",
+							"value": "604800"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=31536000"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "date",
+							"value": "Fri, 04 Aug 2023 21:48:44 GMT"
+						},
+						{
+							"key": "server",
+							"value": "envoy"
+						},
+						{
+							"key": "Via",
+							"value": "HTTP/2 edgeproxy, 1.1 google"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"collaborative\": false,\n    \"description\": \"Demo for United Hacks\",\n    \"external_urls\": {\n        \"spotify\": \"https://open.spotify.com/playlist/2Xfb6UDkY9ppcaYFA7ZTep\"\n    },\n    \"followers\": {\n        \"href\": null,\n        \"total\": 0\n    },\n    \"href\": \"https://api.spotify.com/v1/playlists/2Xfb6UDkY9ppcaYFA7ZTep\",\n    \"id\": \"2Xfb6UDkY9ppcaYFA7ZTep\",\n    \"images\": [],\n    \"name\": \"Test Playlist\",\n    \"owner\": {\n        \"display_name\": \"bhillian\",\n        \"external_urls\": {\n            \"spotify\": \"https://open.spotify.com/user/bhillian\"\n        },\n        \"href\": \"https://api.spotify.com/v1/users/bhillian\",\n        \"id\": \"bhillian\",\n        \"type\": \"user\",\n        \"uri\": \"spotify:user:bhillian\"\n    },\n    \"primary_color\": null,\n    \"public\": true,\n    \"snapshot_id\": \"MSwxZjljOTY1N2E0ZDRjMDgxMDEyYjlhODEzN2U0YzY3ZTAyOGFjMTMy\",\n    \"tracks\": {\n        \"href\": \"https://api.spotify.com/v1/playlists/2Xfb6UDkY9ppcaYFA7ZTep/tracks\",\n        \"items\": [],\n        \"limit\": 100,\n        \"next\": null,\n        \"offset\": 0,\n        \"previous\": null,\n        \"total\": 0\n    },\n    \"type\": \"playlist\",\n    \"uri\": \"spotify:playlist:2Xfb6UDkY9ppcaYFA7ZTep\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get current user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get playlist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/playlists/1KHzD7da9yflPvRmv6jdDV",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"playlists",
+						"1KHzD7da9yflPvRmv6jdDV"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get audiobook",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/audiobooks/7iHfbu1YPACw6oZPAFJtqe",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"audiobooks",
+						"7iHfbu1YPACw6oZPAFJtqe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adding a song to playlist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uris\": [\n        \"spotify:track:4QNpBfC0zvjKqPJcyqBy9W\"\n    ],\n    \"position\": 0\n}"
+				},
+				"url": {
+					"raw": "https://api.spotify.com/v1/playlists/5KXym0QxF59a4q2GnzodAd/tracks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"playlists",
+						"5KXym0QxF59a4q2GnzodAd",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get artist's top tracks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/top-tracks?market=ES",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"artists",
+						"0TnOYISbd1XYRBk9myaseg",
+						"top-tracks"
+					],
+					"query": [
+						{
+							"key": "market",
+							"value": "ES"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "tokenName",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "playlist-modify-public user-library-read user-library-modify user-read-email user-read-private",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "http://localhost:8888/callback",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://accounts.spotify.com/authorize",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{client-secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client-id}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://accounts.spotify.com/api/token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.spotify.com"
+		}
+	]
+}
